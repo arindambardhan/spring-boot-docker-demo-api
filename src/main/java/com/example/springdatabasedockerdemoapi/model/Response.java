@@ -1,0 +1,16 @@
+package com.example.springdatabasedockerdemoapi.model;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import org.springframework.http.HttpStatus;
+
+@Data
+@Builder
+public class Response {
+
+    private String message;
+
+    private HttpStatus code;
+
+}
