@@ -11,6 +11,7 @@ import javax.persistence.*;
 public class Student {
 
     @Id
+    @GeneratedValue
     private int stu_id;
 
     private String name;

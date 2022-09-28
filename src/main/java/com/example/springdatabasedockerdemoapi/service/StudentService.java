@@ -2,6 +2,7 @@ package com.example.springdatabasedockerdemoapi.service;
 
 import com.example.springdatabasedockerdemoapi.dao.model.Student;
 import com.example.springdatabasedockerdemoapi.dao.model.StudentRepository;
+import com.example.springdatabasedockerdemoapi.exceptions.NoRecordFoundException;
 import com.example.springdatabasedockerdemoapi.exceptions.StudentNotFoundException;
 import com.example.springdatabasedockerdemoapi.model.Response;
 import lombok.extern.slf4j.Slf4j;
@@ -31,11 +32,14 @@ public class StudentService {
     public ResponseEntity<Response> save(Student student) {
         studentRepository.save(student);
         log.info("StudentService.save finished successfully");
-        return new ResponseEntity<>(HttpStatus.OK);
+        return ResponseEntity.ok(Response.builder().code(HttpStatus.OK.value()).message("Entity saved").build());
     }
 
     public List<Student> getAllRecords() {
         List<Student> studentList = studentRepository.findAll();
+        if (studentList.size() == 0) {
+            throw new NoRecordFoundException("No record exists");
+        }
         return studentList;
     }
 
@@ -45,6 +49,6 @@ public class StudentService {
         } else if (!studentRepository.existsById(stu_id)) {
             throw new StudentNotFoundException("student not found with the given id");
         }
-        return ResponseEntity.ok(Response.builder().code(HttpStatus.OK).message("student deleted - " + stu_id).build());
+        return ResponseEntity.ok(Response.builder().code(HttpStatus.OK.value()).message("student deleted - " + stu_id).build());
     }
 }
