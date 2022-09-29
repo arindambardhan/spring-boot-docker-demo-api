@@ -11,6 +11,8 @@ public class Response {
 
     private String message;
 
-    private int code;
+    private int httpStatusCode;
+
+    private String errorCode;
 
 }

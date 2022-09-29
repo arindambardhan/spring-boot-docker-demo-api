@@ -21,19 +21,24 @@ public class StudentController {
     @PostMapping("/save-student")
     public ResponseEntity<Response> saveStudent(@RequestBody Student student) {
         ResponseEntity responseEntity;
-        responseEntity = studentService.save(student);
+        responseEntity = studentService.saveStudent(student);
         log.info("StudentController.save finished successfully");
         return responseEntity;
     }
 
-    @GetMapping("/students")
+    @GetMapping("/students-info")
     public List<Student> getAllStudents() {
-        return studentService.getAllRecords();
+        return studentService.getAllStudentRecords();
     }
 
     @RequestMapping(value = "/delete-student/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Response> deleteStudent(@PathVariable("id") Integer stu_id) {
         log.info("stu_id =>=> {}", stu_id);
         return studentService.deleteStudent(stu_id);
+    }
+
+    @GetMapping("/student-info/{stu_id}")
+    public Student getStudent(@PathVariable("stu_id") int stu_id) {
+        return studentService.getStudent(stu_id);
     }
 }
