@@ -4,7 +4,7 @@ spring:
     hibernate:
       ddl-auto: update
   datasource:
-    url: jdbc:sqlserver://practise-database.c6qikducylfb.ap-south-1.rds.amazonaws.com:1433;dataBase=practisejpa;userName=admin;password=87654321;trustServerCertificate=true
+    url: jdbc:sqlserver://database-1.cbdcyxvfnixl.us-east-1.rds.amazonaws.com:1433;dataBase=practisejpa;userName=admin;password=12345678;trustServerCertificate=true
     continue-on-error: true
     hikari:
       initialization-fail-timeout: -1
