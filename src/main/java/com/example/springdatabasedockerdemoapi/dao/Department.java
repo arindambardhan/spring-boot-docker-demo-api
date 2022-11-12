@@ -1,4 +1,4 @@
-package com.example.springdatabasedockerdemoapi.dao.model;
+package com.example.springdatabasedockerdemoapi.dao;
 
 import lombok.Data;
 

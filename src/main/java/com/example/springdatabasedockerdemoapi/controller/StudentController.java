@@ -1,6 +1,6 @@
 package com.example.springdatabasedockerdemoapi.controller;
 
-import com.example.springdatabasedockerdemoapi.dao.model.Student;
+import com.example.springdatabasedockerdemoapi.dao.Student;
 import com.example.springdatabasedockerdemoapi.model.Response;
 import com.example.springdatabasedockerdemoapi.service.StudentService;
 import lombok.RequiredArgsConstructor;

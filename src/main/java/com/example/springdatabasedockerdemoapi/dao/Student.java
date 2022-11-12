@@ -1,6 +1,9 @@
-package com.example.springdatabasedockerdemoapi.dao.model;
+package com.example.springdatabasedockerdemoapi.dao;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
@@ -8,6 +11,9 @@ import javax.persistence.*;
 @Entity
 @Table(name = "student")
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Student {
 
     @Id

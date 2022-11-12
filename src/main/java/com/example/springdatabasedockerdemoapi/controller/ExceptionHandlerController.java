@@ -4,6 +4,7 @@ import com.example.springdatabasedockerdemoapi.exceptions.NoRecordFoundException
 import com.example.springdatabasedockerdemoapi.exceptions.StudentNotFoundException;
 import com.example.springdatabasedockerdemoapi.model.Response;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.exception.JDBCConnectionException;
 import org.springframework.boot.json.JsonParseException;
 import org.springframework.boot.json.JsonParser;
 import org.springframework.http.HttpStatus;
@@ -20,24 +21,24 @@ public class ExceptionHandlerController {
     @ExceptionHandler(StudentNotFoundException.class)
     public ResponseEntity handlesError_1(Exception exception) {
         log.error(exception.getMessage());
-        Response response = Response.builder().httpStatusCode(HttpStatus.NOT_FOUND.value())
-                .message(exception.getMessage()).errorCode(HttpStatus.NOT_FOUND.getReasonPhrase()).build();
+        Response response = Response.builder()
+                .message(exception.getMessage()).errorCode(String.valueOf(HttpStatus.NOT_FOUND.value())).build();
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(NoRecordFoundException.class)
     public ResponseEntity handlesError_2(Exception exception) {
         log.error(exception.getMessage());
-        Response response = Response.builder().httpStatusCode(HttpStatus.NOT_FOUND.value())
-                .message(exception.getMessage()).errorCode(HttpStatus.NOT_FOUND.getReasonPhrase()).build();
+        Response response = Response.builder()
+                .message(exception.getMessage()).errorCode(String.valueOf(HttpStatus.NOT_FOUND.value())).build();
         return ResponseEntity.accepted().body(response);
     }
 
-    @ExceptionHandler(Exception.class)
+    @ExceptionHandler(JDBCConnectionException.class)
     public ResponseEntity handlesError_3(Exception exception) {
         log.error(exception.getMessage());
-        Response response = Response.builder().httpStatusCode(HttpStatus.BAD_REQUEST.value()).
-                message(exception.getMessage()).errorCode(HttpStatus.BAD_REQUEST.getReasonPhrase()).build();
+        Response response = Response.builder().errorCode(String.valueOf(HttpStatus.BAD_REQUEST.value()))
+                .message(exception.getMessage()).build();
         return ResponseEntity.badRequest().body(response);
     }
 }
