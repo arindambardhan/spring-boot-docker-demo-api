@@ -41,4 +41,11 @@ public class ExceptionHandlerController {
                 .message(exception.getMessage()).build();
         return ResponseEntity.badRequest().body(response);
     }
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity handlesError_4(Exception exception) {
+        log.error(exception.getMessage());
+        Response response = Response.builder().errorCode(String.valueOf(HttpStatus.BAD_REQUEST.value()))
+                .message(exception.getMessage()).build();
+        return ResponseEntity.badRequest().body(response);
+    }
 }

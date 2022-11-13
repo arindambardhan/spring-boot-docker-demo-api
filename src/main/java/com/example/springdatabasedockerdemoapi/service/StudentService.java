@@ -32,7 +32,7 @@ public class StudentService {
 
     public List<Student> getAllStudentRecords() {
         List<Student> studentList = studentRepository.findAll();
-        if (studentList.size() == 0) {
+        if (studentList.isEmpty()) {
             throw new NoRecordFoundException("No record exists");
         }
         return studentList;
