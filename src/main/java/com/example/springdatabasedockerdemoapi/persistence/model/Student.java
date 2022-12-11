@@ -3,6 +3,7 @@ package com.example.springdatabasedockerdemoapi.dao.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 
 @Entity
@@ -12,10 +13,12 @@ public class Student {
 
     @Id
     @GeneratedValue
-    private int stu_id;
+    private int id;
     private String name;
     private String city;
 
     @OneToOne(cascade = CascadeType.ALL)
     private Department department;
+
+    private Timestamp timestamp;
 }
