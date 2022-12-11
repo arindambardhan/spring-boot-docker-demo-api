@@ -1,6 +1,6 @@
-package com.example.springdatabasedockerdemoapi.dao;
+package com.example.springdatabasedockerdemoapi.persistence.repository;
 
-import com.example.springdatabasedockerdemoapi.dao.model.Student;
+import com.example.springdatabasedockerdemoapi.persistence.model.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

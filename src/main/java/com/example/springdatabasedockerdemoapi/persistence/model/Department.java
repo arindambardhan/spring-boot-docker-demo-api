@@ -1,4 +1,4 @@
-package com.example.springdatabasedockerdemoapi.dao.model;
+package com.example.springdatabasedockerdemoapi.persistence.model;
 
 import lombok.Data;
 
@@ -13,7 +13,7 @@ public class Department {
 
     @Id
     @GeneratedValue
-    private int dp_id;
+    private int id;
 
-    private String dp_name;
+    private String name;
 }

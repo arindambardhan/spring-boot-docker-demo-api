@@ -2,16 +2,12 @@ package com.example.springdatabasedockerdemoapi.controller;
 
 import com.example.springdatabasedockerdemoapi.exceptions.NoRecordFoundException;
 import com.example.springdatabasedockerdemoapi.exceptions.StudentNotFoundException;
-import com.example.springdatabasedockerdemoapi.model.Response;
+import com.example.springdatabasedockerdemoapi.dto.Response;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.json.JsonParseException;
-import org.springframework.boot.json.JsonParser;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-
-import java.util.Arrays;
 
 @RestControllerAdvice
 @Slf4j

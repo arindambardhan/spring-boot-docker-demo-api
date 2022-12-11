@@ -1,5 +1,6 @@
-package com.example.springdatabasedockerdemoapi.dao.model;
+package com.example.springdatabasedockerdemoapi.persistence.model;
 
+import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -9,6 +10,7 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "student")
 @Data
+@Builder
 public class Student {
 
     @Id

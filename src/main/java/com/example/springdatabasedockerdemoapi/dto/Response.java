@@ -1,4 +1,4 @@
-package com.example.springdatabasedockerdemoapi.model;
+package com.example.springdatabasedockerdemoapi.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

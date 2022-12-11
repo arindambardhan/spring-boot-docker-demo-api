@@ -1,25 +1,20 @@
 package com.example.springdatabasedockerdemoapi.service;
 
-import com.example.springdatabasedockerdemoapi.dao.model.Student;
-import com.example.springdatabasedockerdemoapi.dao.model.StudentRepository;
+import com.example.springdatabasedockerdemoapi.dto.StudentRequest;
+import com.example.springdatabasedockerdemoapi.persistence.model.Student;
+import com.example.springdatabasedockerdemoapi.persistence.repository.StudentRepository;
 import com.example.springdatabasedockerdemoapi.exceptions.NoRecordFoundException;
 import com.example.springdatabasedockerdemoapi.exceptions.StudentNotFoundException;
-import com.example.springdatabasedockerdemoapi.model.Response;
+import com.example.springdatabasedockerdemoapi.dto.Response;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.engine.spi.SessionDelegatorBaseImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import javax.persistence.Entity;
-import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,10 +26,14 @@ public class StudentService {
     @Autowired
     StudentRepository studentRepository;
 
-    public ResponseEntity<Response> saveStudent(Student student) {
+    public ResponseEntity<Response> saveStudent(StudentRequest studentRequest) {
+
+        Student student = Student.builder()
+                .id(studentRequest.getId()).city(studentRequest.getCity())
+                .name(studentRequest.getName()).department(studentRequest.getDepartment()).build();
         studentRepository.save(student);
-        log.info("StudentService.save finished successfully");
-        return ResponseEntity.ok(Response.builder().httpStatusCode(HttpStatus.OK.value()).message("Entity saved").build());
+        log.debug("saveStudent finished successfully");
+        return ResponseEntity.ok(Response.builder().httpStatusCode(HttpStatus.OK.value()).message("Student saved").build());
     }
 
     public List<Student> getAllStudentRecords() {
@@ -61,4 +60,6 @@ public class StudentService {
         }
         return student.get();
     }
+
+
 }
