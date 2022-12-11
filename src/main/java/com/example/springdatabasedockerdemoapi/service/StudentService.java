@@ -44,22 +44,19 @@ public class StudentService {
         return studentList;
     }
 
-    public ResponseEntity<Response> deleteStudent(Integer stu_id) {
-        if (studentRepository.existsById(stu_id)) {
-            studentRepository.deleteById(stu_id);
-        } else if (!studentRepository.existsById(stu_id)) {
+    public ResponseEntity<Response> deleteStudent(int id) {
+        if (!studentRepository.existsById(id)) {
             throw new StudentNotFoundException("student not found with the given id");
         }
-        return ResponseEntity.ok(Response.builder().httpStatusCode(HttpStatus.OK.value()).message("student deleted - " + stu_id).build());
+        studentRepository.deleteById(id);
+        return ResponseEntity.ok(Response.builder().httpStatusCode(HttpStatus.OK.value()).message("student deleted - " + id).build());
     }
 
-    public Student getStudent(@PathVariable("stu_id") int stu_id) {
-        Optional<Student> student = studentRepository.findById(stu_id);
+    public Student getStudent(int id) {
+        Optional<Student> student = studentRepository.findById(id);
         if (!student.isPresent()) {
-            throw new NoRecordFoundException("No student found for given stu_id - " + stu_id);
+            throw new NoRecordFoundException("No student found for given id - " + id);
         }
         return student.get();
     }
-
-
 }

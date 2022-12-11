@@ -8,12 +8,12 @@ import javax.persistence.Id;
 
 
 @Data
-@Entity
+@Entity(name = "department")
 public class Department {
 
     @Id
     @GeneratedValue
-    private int id;
+    private int depId;
 
     private String name;
 }

@@ -4,6 +4,7 @@ package com.example.springdatabasedockerdemoapi.controller;
 import com.example.springdatabasedockerdemoapi.dto.Response;
 
 import com.example.springdatabasedockerdemoapi.dto.StudentRequest;
+import com.example.springdatabasedockerdemoapi.persistence.model.Student;
 import com.example.springdatabasedockerdemoapi.service.StudentService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,24 +25,27 @@ public class StudentController {
     public ResponseEntity<Response> saveStudent(@RequestBody StudentRequest studentRequest) {
         ResponseEntity responseEntity;
         responseEntity = studentService.saveStudent(studentRequest);
-        log.info("StudentController.save finished successfully");
+        log.info("saveStudent finished successfully");
         return responseEntity;
     }
-/*
+
     @GetMapping("/students")
-    public List<Student> getAllStudents() {
-        return studentService.getAllStudentRecords();
+    public List<Student> getStudents() {
+
+        List<Student> students = studentService.getAllStudentRecords();
+        log.info("getStudents finished successfully");
+        return students;
     }
 
-    @RequestMapping(value = "/students/delete/{id}", method = RequestMethod.DELETE)
+    @DeleteMapping("/students/delete/{id}")
     public ResponseEntity<Response> deleteStudent(@PathVariable("id") int id) {
-        log.info("stu_id =>=> {}", id);
-        return studentService.deleteStudent(id);
+        ResponseEntity<Response> deleteStudentResponse = studentService.deleteStudent(id);
+        return deleteStudentResponse;
     }
 
     @GetMapping("/students/{id}")
     public Student getStudent(@PathVariable("id") int id) {
-
-        return studentService.getStudent(id);
-    }*/
+        Student student = studentService.getStudent(id);
+        return student;
+    }
 }
