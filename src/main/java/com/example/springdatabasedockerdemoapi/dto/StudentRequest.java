@@ -1,10 +1,8 @@
 package com.example.springdatabasedockerdemoapi.dto;
 
 import com.example.springdatabasedockerdemoapi.persistence.model.Department;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.*;
 
 @Data
 @Builder
@@ -12,11 +10,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class StudentRequest {
 
-private int id;
-private String name;
-
-private String city;
-
-private Department department;
+    private int id;
+    private String name;
+    private String city;
+    private Department department;
 
 }

@@ -48,4 +48,11 @@ public class StudentController {
         Student student = studentService.getStudent(id);
         return student;
     }
+
+    @PutMapping("/update-student")
+    public ResponseEntity<Response> updateStudent(@RequestBody StudentRequest studentRequest) {
+        return studentService.updateStudent(studentRequest);
+
+    }
+
 }

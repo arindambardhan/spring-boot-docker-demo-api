@@ -7,6 +7,7 @@ import com.example.springdatabasedockerdemoapi.exceptions.NoRecordFoundException
 import com.example.springdatabasedockerdemoapi.exceptions.StudentNotFoundException;
 import com.example.springdatabasedockerdemoapi.dto.Response;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +17,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import javax.transaction.Transactional;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
+
+import static com.fasterxml.jackson.databind.util.ClassUtil.name;
 
 @Service
 @Slf4j
@@ -29,11 +33,15 @@ public class StudentService {
     public ResponseEntity<Response> saveStudent(StudentRequest studentRequest) {
 
         Student student = Student.builder()
-                .id(studentRequest.getId()).city(studentRequest.getCity())
-                .name(studentRequest.getName()).department(studentRequest.getDepartment()).build();
+                .id(studentRequest.getId())
+                .city(studentRequest.getCity())
+                .name(studentRequest.getName())
+                .department(studentRequest.getDepartment())
+                .build();
         studentRepository.save(student);
+
         log.debug("saveStudent finished successfully");
-        return ResponseEntity.ok(Response.builder().httpStatusCode(HttpStatus.OK.value()).message("Student saved").build());
+        return ResponseEntity.ok(Response.builder().httpStatusCode(HttpStatus.CREATED.value()).build());
     }
 
     public List<Student> getAllStudentRecords() {
@@ -44,19 +52,38 @@ public class StudentService {
         return studentList;
     }
 
+    @Transactional
     public ResponseEntity<Response> deleteStudent(int id) {
         if (!studentRepository.existsById(id)) {
-            throw new StudentNotFoundException("student not found with the given id");
+            throw new StudentNotFoundException("No record exists with id - " + id);
         }
         studentRepository.deleteById(id);
-        return ResponseEntity.ok(Response.builder().httpStatusCode(HttpStatus.OK.value()).message("student deleted - " + id).build());
+        return ResponseEntity.ok(Response.builder().httpStatusCode(HttpStatus.OK.value()).message("Record deleted").build());
     }
 
     public Student getStudent(int id) {
         Optional<Student> student = studentRepository.findById(id);
         if (!student.isPresent()) {
-            throw new NoRecordFoundException("No student found for given id - " + id);
+            throw new NoRecordFoundException("No record exists with id - " + id);
         }
         return student.get();
+    }
+
+    public ResponseEntity<Response> updateStudent(StudentRequest studentRequest) {
+
+        Optional<Student> student = studentRepository.findById(studentRequest.getId());
+        if (student.isPresent()) {
+            Student updatedStudent = Student.builder()
+                    .id(studentRequest.getId())
+                    .name(studentRequest.getName())
+                    .city(studentRequest.getCity())
+                    .department(studentRequest.getDepartment())
+                    .build();
+            studentRepository.save(updatedStudent);
+            return ResponseEntity.ok(Response.builder()
+                    .httpStatusCode(HttpStatus.OK.value()).build());
+        }
+        return ResponseEntity.ok(Response.builder().
+                errorCode(String.valueOf(HttpStatus.NOT_FOUND.value())).message("Student not found").build());
     }
 }
