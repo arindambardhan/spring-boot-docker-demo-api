@@ -1,7 +1,10 @@
 package com.example.springdatabasedockerdemoapi.controller;
 
-import com.example.springdatabasedockerdemoapi.dao.model.Student;
-import com.example.springdatabasedockerdemoapi.model.Response;
+
+import com.example.springdatabasedockerdemoapi.dto.Response;
+
+import com.example.springdatabasedockerdemoapi.dto.StudentRequest;
+import com.example.springdatabasedockerdemoapi.persistence.model.Student;
 import com.example.springdatabasedockerdemoapi.service.StudentService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,34 +14,45 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/student/info")
 @RequiredArgsConstructor
+@RequestMapping("/student-management")
 @Slf4j
 public class StudentController {
 
     private final StudentService studentService;
 
-    @PostMapping("/save-student")
-    public ResponseEntity<Response> saveStudent(@RequestBody Student student) {
+    @PostMapping("/add-student")
+    public ResponseEntity<Response> saveStudent(@RequestBody StudentRequest studentRequest) {
         ResponseEntity responseEntity;
-        responseEntity = studentService.saveStudent(student);
-        log.info("StudentController.save finished successfully");
+        responseEntity = studentService.saveStudent(studentRequest);
+        log.info("saveStudent finished successfully");
         return responseEntity;
     }
 
-    @GetMapping("/students-info")
-    public List<Student> getAllStudents() {
-        return studentService.getAllStudentRecords();
+    @GetMapping("/students")
+    public List<Student> getStudents() {
+
+        List<Student> students = studentService.getAllStudentRecords();
+        log.info("getStudents finished successfully");
+        return students;
     }
 
-    @RequestMapping(value = "/delete-student/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<Response> deleteStudent(@PathVariable("id") Integer stu_id) {
-        log.info("stu_id =>=> {}", stu_id);
-        return studentService.deleteStudent(stu_id);
+    @DeleteMapping("/students/delete/{id}")
+    public ResponseEntity<Response> deleteStudent(@PathVariable("id") int id) {
+        ResponseEntity<Response> deleteStudentResponse = studentService.deleteStudent(id);
+        return deleteStudentResponse;
     }
 
-    @GetMapping("/student-info/{stu_id}")
-    public Student getStudent(@PathVariable("stu_id") int stu_id) {
-        return studentService.getStudent(stu_id);
+    @GetMapping("/students/{id}")
+    public Student getStudent(@PathVariable("id") int id) {
+        Student student = studentService.getStudent(id);
+        return student;
     }
+
+    @PutMapping("/update-student")
+    public ResponseEntity<Response> updateStudent(@RequestBody StudentRequest studentRequest) {
+        return studentService.updateStudent(studentRequest);
+
+    }
+
 }
