@@ -3,21 +3,16 @@ package com.example.springdatabasedockerdemoapi.service;
 import com.example.springdatabasedockerdemoapi.dto.StudentRequest;
 import com.example.springdatabasedockerdemoapi.persistence.model.Student;
 import com.example.springdatabasedockerdemoapi.persistence.repository.StudentRepository;
-import com.example.springdatabasedockerdemoapi.exceptions.NoRecordFoundException;
-import com.example.springdatabasedockerdemoapi.exceptions.StudentNotFoundException;
+import com.example.springdatabasedockerdemoapi.exceptions.RecordNotFoundException;
 import com.example.springdatabasedockerdemoapi.dto.Response;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.transaction.Transactional;
-import java.sql.Timestamp;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 import static com.fasterxml.jackson.databind.util.ClassUtil.name;
@@ -41,21 +36,21 @@ public class StudentService {
         studentRepository.save(student);
 
         log.debug("saveStudent finished successfully");
-        return ResponseEntity.ok(Response.builder().httpStatusCode(HttpStatus.CREATED.value()).build());
+        return ResponseEntity.ok(Response.builder().httpStatusCode(HttpStatus.OK.value()).build());
     }
 
     public List<Student> getAllStudentRecords() {
         List<Student> studentList = studentRepository.findAll();
         if (studentList.size() == 0) {
-            throw new NoRecordFoundException("No record exists");
+            throw new RecordNotFoundException("No record exists");
         }
         return studentList;
     }
 
-    @Transactional
+
     public ResponseEntity<Response> deleteStudent(int id) {
         if (!studentRepository.existsById(id)) {
-            throw new StudentNotFoundException("No record exists with id - " + id);
+            throw new RecordNotFoundException("No record exists with id - " + id);
         }
         studentRepository.deleteById(id);
         return ResponseEntity.ok(Response.builder().httpStatusCode(HttpStatus.OK.value()).message("Record deleted").build());
@@ -64,7 +59,7 @@ public class StudentService {
     public Student getStudent(int id) {
         Optional<Student> student = studentRepository.findById(id);
         if (!student.isPresent()) {
-            throw new NoRecordFoundException("No record exists with id - " + id);
+            throw new RecordNotFoundException("No record exists with id - " + id);
         }
         return student.get();
     }
