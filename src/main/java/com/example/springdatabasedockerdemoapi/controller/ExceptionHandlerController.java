@@ -19,7 +19,7 @@ public class ExceptionHandlerController {
         log.error(exception.getMessage());
         return ResponseEntity.ok(Response.builder()
                 .message(exception.getMessage())
-                .errorCode(HttpStatus.NOT_FOUND.getReasonPhrase())
+                .errorCode(HttpStatus.NOT_FOUND.name())
                 .build());
     }
 
@@ -28,7 +28,7 @@ public class ExceptionHandlerController {
         log.error(exception.getMessage());
         return ResponseEntity.ok(Response.builder()
                 .message(exception.getMessage()).
-                errorCode(HttpStatus.BAD_REQUEST.getReasonPhrase()).
+                errorCode(HttpStatus.BAD_REQUEST.name()).
                 build());
     }
     @ExceptionHandler(HttpServerErrorException.class)
@@ -36,7 +36,7 @@ public class ExceptionHandlerController {
         log.error(exception.getMessage());
         return ResponseEntity.ok(Response.builder()
                 .message(exception.getMessage()).
-                errorCode(HttpStatus.BAD_REQUEST.getReasonPhrase()).
+                errorCode(HttpStatus.BAD_REQUEST.name()).
                 build());
     }
 }
