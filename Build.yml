@@ -1,0 +1,21 @@
+#Build Tools
+
+BuildTool: Gradle
+JavaVersion: Java 8
+VersionFilePath: ''
+
+#Build Scripts
+
+BuildScripts:
+  - ./gradlew clean test --stacktrace
+
+#Artifacts
+
+Artifacts:
+    - Artifact:
+        Component: Members-Restriction-API
+        GroupID: com.example.springdatabasedockerdemoapi
+        ArtifactID: members-restriction-api
+        VersionID: build.gradle
+        Packaging10: jar
+        Classifier10: ''
