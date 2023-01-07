@@ -1,16 +1,13 @@
 #Build Tools
-
 BuildTool: Gradle
 JavaVersion: Java 8
 VersionFilePath: ''
 
 #Build Scripts
-
 BuildScripts:
   - ./gradlew clean test --stacktrace
 
 #Artifacts
-
 Artifacts:
     - Artifact:
         Component: Spring-Boot-Docker-Demo-Api
