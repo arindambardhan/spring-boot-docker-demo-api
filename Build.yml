@@ -13,5 +13,4 @@ Artifacts:
       GroupID: com.example.springdatabasedockerdemoapi
       ArtifactID: spring-boot-docker-demo-api
       VersionID: build.gradle
-      Packaging10: jar
-      Classifier10: ''
+      Packaging10: jar      
