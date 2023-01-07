@@ -1,18 +1,17 @@
-#Build Tools
 BuildTool: Gradle
 JavaVersion: Java 8
 VersionFilePath: ''
 
-#Build Scripts
+
 BuildScripts:
   - ./gradlew clean test --stacktrace
 
-#Artifacts
+
 Artifacts:
-    - Artifact:
-        Component: Spring-Boot-Docker-Demo-Api
-        GroupID: com.example.springdatabasedockerdemoapi
-        ArtifactID: spring-boot-docker-demo-api
-        VersionID: build.gradle
-        Packaging10: jar
-        Classifier10: ''
+  - Artifact:
+      Component: Spring-Boot-Docker-Demo-Api
+      GroupID: com.example.springdatabasedockerdemoapi
+      ArtifactID: spring-boot-docker-demo-api
+      VersionID: build.gradle
+      Packaging10: jar
+      Classifier10: ''
