@@ -13,9 +13,9 @@ BuildScripts:
 
 Artifacts:
     - Artifact:
-        Component: Members-Restriction-API
+        Component: Spring-Boot-Docker-Demo-Api
         GroupID: com.example.springdatabasedockerdemoapi
-        ArtifactID: members-restriction-api
+        ArtifactID: spring-boot-docker-demo-api
         VersionID: build.gradle
         Packaging10: jar
         Classifier10: ''
