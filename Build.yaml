@@ -5,4 +5,4 @@ pipeline:
     - stage: "Build spring-boot-docker-demo-api using gradle build"
       steps:
         - git "https://github.com/arindambardhan/spring-boot-docker-demo-api.git"
-        - sh './gradlew clean build'
+        - bat './gradlew clean build'
