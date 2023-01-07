@@ -1,16 +1,8 @@
-BuildTool: Gradle
-JavaVersion: Java 8
-VersionFilePath: ''
-
-
-BuildScripts:
-  - ./gradlew clean test --stacktrace
-
-
-Artifacts:
-  - Artifact:
-      Component: Spring-Boot-Docker-Demo-Api
-      GroupID: com.example.springdatabasedockerdemoapi
-      ArtifactID: spring-boot-docker-demo-api
-      VersionID: build.gradle
-      Packaging10: jar      
+pipeline:
+  agent:
+    any:
+  stages:
+    - stage: "Build spring-boot-docker-demo-api using gradle build"
+      steps:
+        - git "https://github.com/arindambardhan/spring-boot-docker-demo-api.git"
+        - sh './gradlew clean build'
